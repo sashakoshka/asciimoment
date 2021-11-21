@@ -8,4 +8,7 @@ run: all
 	./bin/ascmt
 
 install:
-	install bin/ascmt /usr/sbin/ascmt
+	install bin/ascmt /usr/local/bin/ascmt
+
+uninstall:
+	rm -f /usr/local/bin/ascmt
