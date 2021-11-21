@@ -9,4 +9,4 @@ this does not use ncurses. just ansi codes.
 ## "Keybinds"
 
 - `ctrl-d`: exit
-- `enter`: clear screen
+- `ctrl-h`: clear screen

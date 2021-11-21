@@ -1,8 +1,7 @@
 #include <stdio.h>
 #include <termios.h>
 
-// TODO: dont do this every time
-int _getch() {
+int main() {
   struct termios old;
   tcgetattr(0, &old);
   old.c_lflag &= ~ICANON;
@@ -10,20 +9,12 @@ int _getch() {
   old.c_cc[VMIN] = 1;
   old.c_cc[VTIME] = 0;
   tcsetattr(0, TCSANOW, &old);
-  int ch = getchar();
-  old.c_lflag |= ICANON;
-  old.c_lflag |= ECHO;
-  tcsetattr(0, TCSADRAIN, &old);
-  return ch;
-}
-
-
-int main() {
+  
   int ch;
   printf("\033[2J\033[0;0H");
-  while ((ch = _getch()) != 4) {
+  while ((ch = getchar()) != 4) {
     switch (ch) {
-      case '\n':
+      case '\b':
         printf("\033[2J");
         break;
       default:
@@ -31,5 +22,11 @@ int main() {
         break;
     }
   }
+
+  putchar('\n');
+
+  old.c_lflag |= ICANON;
+  old.c_lflag |= ECHO;
+  tcsetattr(0, TCSADRAIN, &old);
   return 0;
 }
